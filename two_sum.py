@@ -8,12 +8,8 @@ class Solution:
             dict_of_delta[delta] = i
 
 
-#a = Solution
-# print(a.twoSumOld(a, [2, 1, 4, 3], 5))
-#print(a.twoSum(a, [2, 1, 4, 3], 5))
+a = Solution
+print(a.twoSumOld(a, [2, 1, 4, 3], 5))
+print(a.twoSum(a, [2, 1, 4, 3], 5))
 
 
-
-
-a = 82 // 3**2 % 7
-print(a)
