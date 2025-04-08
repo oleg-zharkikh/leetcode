@@ -1,44 +1,17 @@
 # Номер успешной посылки по задаче:
-# 136314336
+# 136370929
 
-# Константы адресной части элементов стека
-MUL = 0
-MESSAGE = 1
+CURRENT_MULTIPLIER = 0
+"""Индекс хранения множителя в парах значений стека."""
 
-# Константы, задающие символы управления в сжатой инструкции
+CURRENT_MESSAGE = 1
+"""Индекс хранения подстроки в парах значений стека."""
+
 BLOCK_START_CHR = '['
+"""Символ начала мультиплицируемой строки."""
+
 BLOCK_END_CHR = ']'
-
-
-class Stack(list):
-    """Реализация стека на основе списка.
-
-    Каждый элемент стека - пара "множитель" - "текущая подстрока".
-    """
-
-    def __init__(self, *args) -> None:
-        """Инициализирует стек, добавляя начальный элемент."""
-        super().__init__(*args)
-        self.append(['1', ''])
-
-    def modify_top(self, part: int, value: str) -> None:
-        """Добавляет значение в указанную часть верхнего элемента стека.
-
-        Args:
-            part (int): Индекс редактируемой части верхнего элемента.
-            value (str): Строка, которая будет добавлена к выбранной части.
-        """
-        top_index = len(self) - 1
-        self[top_index][part] += value
-
-    def multiplx_pop(self) -> str:
-        """Возвращает мультиплицированную строку из стека.
-
-        Returns:
-            str: мультиплицированная строка.
-        """
-        multiplier, current_block = self.pop()
-        return int(multiplier) * current_block
+"""Символ окончания мультиплицируемой строки."""
 
 
 def decrypt_message(short_message: str) -> str:
@@ -50,9 +23,10 @@ def decrypt_message(short_message: str) -> str:
     Returns:
         str: полная форма команды.
     """
-    pointer: int = 0
-    stack = Stack()
-    multiplier: str = ''
+    pointer = 0
+    stack = []
+    stack.append(['1', ''])
+    multiplier = ''
     while pointer < len(short_message):
         if short_message[pointer].isdecimal():
             multiplier += short_message[pointer]
@@ -60,12 +34,15 @@ def decrypt_message(short_message: str) -> str:
             stack.append([multiplier, ''])
             multiplier = ''
         elif short_message[pointer] == BLOCK_END_CHR:
-            stack.modify_top(MESSAGE, stack.multiplx_pop())
+            multiplier, multiplied_message = stack.pop()
+            stack[len(stack)-1][CURRENT_MESSAGE] += (
+                multiplied_message * int(multiplier)
+            )
             multiplier = ''
         else:
-            stack.modify_top(MESSAGE, short_message[pointer])
+            stack[len(stack)-1][CURRENT_MESSAGE] += short_message[pointer]
         pointer += 1
-    return stack.multiplx_pop()
+    return stack[len(stack)-1][CURRENT_MESSAGE]
 
 
 def main() -> None:
