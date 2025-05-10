@@ -23,5 +23,6 @@ def main():
     print(Solution().lengthOfLongestSubstring('tmmzuxt'))
     print('expected: 5')
 
+
 if __name__ == '__main__':
     main()
