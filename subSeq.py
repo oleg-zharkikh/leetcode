@@ -6,8 +6,8 @@ class Solution:
             if i[2] == True: 
                 desisions_counter += 1
         return desisions_counter
-    
-   
+
+
     def shortestCommonSupersequence(self, str1: str, str2: str) -> str:
         if len(str1) > len(str2):
             s= str2

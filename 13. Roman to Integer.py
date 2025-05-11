@@ -1,5 +1,6 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
+        """Given a roman numeral, convert it to an integer."""
         i = len(s) - 1
         sum_digit = 0
         while i >= 0:
@@ -43,14 +44,14 @@ class Solution:
                     digit = 400
                     i -= 1
                 else:
-                    digit = 500   
+                    digit = 500
             if s[i] == 'M':  # M
                 if (i > 0) and s[i - 1] == 'C':  # CM
                     digit = 900
                     i -= 1
                 else:
-                    digit = 1000          
-            i -= 1 
+                    digit = 1000
+            i -= 1
             sum_digit += digit
         return sum_digit
 
