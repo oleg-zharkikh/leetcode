@@ -11,5 +11,3 @@ class Solution:
 a = Solution
 print(a.twoSumOld(a, [2, 1, 4, 3], 5))
 print(a.twoSum(a, [2, 1, 4, 3], 5))
-
-
