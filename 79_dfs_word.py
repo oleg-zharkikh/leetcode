@@ -23,7 +23,6 @@ class Solution:
                 return False
         visited = []
         def dfs(g, node, visited, path):
-            # print(f'dfs{node}')
             if node in visited:
                 return False
             if not path:
