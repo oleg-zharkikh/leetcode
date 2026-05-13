@@ -6,34 +6,29 @@ class TreeNode:
         self.right = right
 
 class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
 
-    def recoverTree(self, root: Optional[TreeNode]) -> None:
-        """
-        Do not return anything, modify root in-place instead.
-        """
-
-        if not root:
-            return
-
-        first = second = None
-        prev = None
-
-        def in_order(node: Optional[TreeNode]):
-            nonlocal prev, first, second
-            if not node:
+        the_same = True
+        def in_order(node_1: Optional[TreeNode], node_2: Optional[TreeNode]):
+            nonlocal the_same
+            if not the_same:
                 return
-            in_order(node.left)
+            if not node_1 and not node_2:
+                return
+            elif (not node_1 and node_2) or (node_1 and not node_2):
+                the_same = False
+                return
 
-            if prev and prev.val > node.val:
-                if not first:
-                    first = prev
-                second = node
-            prev = node
+            in_order(node_1.left, node_2.left)
 
-            in_order(node.right)
+            if node_1.val != node_2.val:
+                the_same = False
+                return
 
-        in_order(root)
-        first.val, second.val = second.val, first.val
+            in_order(node_1.right, node_2.right)
+
+        in_order(p, q)
+        return the_same
 
 
 def print_tree(node):
@@ -76,13 +71,13 @@ def list_to_tree(data):
 
 
 null = None
-data=[6, 3, 9, 2, 5, 8, 10, 1, null, 4, 7]
+p = [1,2]
+q = [1,null,2]
 
 
-root = list_to_tree(data)
+p_bt = list_to_tree(p)
+q_bt = list_to_tree(q)
 
 a = Solution()
 
-# print_tree(root)
-a.recoverTree(root)
-print_tree(root)
+print(a.isSameTree(p_bt, q_bt))

@@ -21,28 +21,6 @@ class Solution:
 
 
 
-
-# def list_to_tree(data):
-#     if not data:
-#         return None
-#     nodes = [TreeNode(val) if val is not None else None for val in data]
-#     for i in range(len(nodes)):
-#         print(f'Обработка {i}-ой вершины ({nodes[i].val if nodes[i] else None}) ... ', end='')
-#         if nodes[i] is not None:
-#             print('processing')
-#             left_idx = 2 * i + 1
-#             print(f'{left_idx=}')
-#             if left_idx < len(nodes):
-#                 nodes[i].left = nodes[left_idx]
-
-#             right_idx = 2 * i + 2
-#             print(f'{right_idx=}')
-#             if right_idx < len(nodes):
-#                 nodes[i].right = nodes[right_idx]
-#         else:
-#             print('skip, is None')
-#     return nodes[0]
-
 from collections import deque
 def list_to_tree(lst):
     
